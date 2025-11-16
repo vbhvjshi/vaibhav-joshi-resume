@@ -5,149 +5,455 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Vaibhav Joshi — Resume</title>
   <style>
-  :root {
-    --accent:#0b6b5a;
-    --accent2:#20bfa9;
-    --muted:#6b7280;
-    --bg:#f5f7fa;
-    --card:#fff;
-    --brown:#8B4513;
-    --shadow:rgba(0,0,0,0.08);
-    --edu-bg:#f5faff;
-    --edu-border:#0b6b5a33;
-    --maxw:min(1100px,94vw);
-    --heading-font-size:18px;
-    --content-font-size:14px;
-    --small-font-size:12px;
-    --section-gap:30px;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  body {
-    font-family:Arial, Helvetica, sans-serif;
-    background:var(--bg);
-    color:#111827;
-    line-height:1.6;
-    font-size:var(--content-font-size);
-  }
-  a { color:var(--accent); text-decoration:none; } /* Removed underline */
-  .topbar { position:sticky;top:0;z-index:50;background:#ffffffcc;backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid #e5e7eb; }
-  .topbar-inner { max-width:var(--maxw);margin:0 auto;padding:10px 24px;display:flex;justify-content:flex-end; }
-  .btn { border:0;padding:8px 14px;border-radius:10px;background:var(--accent);color:#fff;cursor:pointer;font-size:var(--content-font-size);display:inline-flex;align-items:center;gap:8px;}
-  .spinner { width:0;height:18px;opacity:0;visibility:hidden;border-radius:50%;border:3px solid rgba(255,255,255,0.28);border-top-color:#fff;animation:spin 1s linear infinite;}
-  .spinner.active{width:18px;margin-left:6px;opacity:1;visibility:visible;}
-  @keyframes spin{to{transform:rotate(360deg)}}
-  .container {max-width:var(--maxw);margin:28px auto 40px;padding:24px;}
-  .card {background:var(--card);border-radius:16px;box-shadow:0 10px 30px var(--shadow);}
-  .header {display:flex;gap:20px;padding:30px;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff;align-items:center;}
-  .avatar {width:100px;height:100px;border-radius:12px;background:white;color:var(--accent);font-weight:800;font-size:24px;display:flex;align-items:center;justify-content:center;overflow:hidden;}
-  .avatar img{width:100%;height:100%;object-fit:cover;}
-  h1{margin:0;font-size:24px;}
-  .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;}
-  .pill{background:rgba(255,255,255,0.18);padding:6px 12px;border-radius:999px;font-size:var(--content-font-size);display:inline-flex;align-items:center;gap:8px;}
-  .main {display: grid;grid-template-columns: 1fr minmax(260px, 340px);gap: 28px;padding: 28px;align-items: start;}
-  @media(max-width:880px){.main{grid-template-columns:1fr;padding:16px}}
-  .section-title{border-left:4px solid var(--accent);padding-left:8px;margin:15px 0 10px;color:var(--accent);font-weight:600;font-size:var(--heading-font-size);}
-  .section-block{margin-bottom:var(--section-gap);}
-  .job,.education-card{padding:16px;border-radius:12px;border:1px solid rgba(139,69,19,0.12);background:#fffaf5;margin-bottom:12px;}
-  .education-card{background:var(--edu-bg);border:1px solid var(--edu-border);}
-  .muted{color:var(--muted);font-size:var(--small-font-size);}
-  .job ul{list-style:none;margin-top:8px;}
-  .job ul li{display:flex;align-items:flex-start;gap:10px;margin-bottom:6px;}
-  .star{flex-shrink:0;width:16px;height:16px;}
-  .star svg{width:100%;height:100%;}
-  .side {display: flex;flex-direction: column;gap: 24px;padding: 20px;background: linear-gradient(180deg, rgba(11,107,90,0.02), transparent);border-left: 2px solid rgba(11,107,90,0.06);border-radius: 12px;}
-  .side .section-block {margin-bottom: 0px !important;}
-  .tech{display:flex;flex-wrap:wrap;gap:8px;}
-  .tech span{background:#eef3f2;padding:6px 10px;border-radius:6px;font-size:var(--small-font-size);}
-  #blogs li { margin-bottom:5.5px; } /* Space between blog links */
-  #blogs {list-style: none;padding-left: 0;margin: 0;}
-  #blogs a {text-decoration: underline;text-underline-offset: 3px;}
-  #blogs a::before {text-decoration: none !important;}
-  #strengths { list-style-position: inside; padding-left: 24px; } /* Proper left padding for Core Strengths */
-  footer{padding:20px;text-align:center;background:#f1f5f9;color:var(--muted);font-size:var(--small-font-size);border-top:1px solid #e2e8f0;}
-  @media print {.topbar,footer {display: none;}.container {max-width: 760px;margin: 8mm auto;padding: 6mm;}
+    :root{
+      --accent:#0b6b5a;
+      --accent2:#20bfa9;
+      --muted:#6b7280;
+      --bg:#f5f7fa;
+      --card:#fff;
+      --brown:#8B4513;
+      --shadow:rgba(0,0,0,0.08);
+      --edu-bg:#f5faff;
+      --edu-border:#0b6b5a33;
+      --maxw:min(1100px,94vw);
+      --heading-font-size:18px;
+      --content-font-size:14px;
+      --small-font-size:13px;
+      --icon-offset:26px;
+      --section-gap:30px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      font-family:Arial, Helvetica, sans-serif;
+      margin:0;
+      background:var(--bg);
+      color:#111827;
+      line-height:1.6;
+      font-size:var(--content-font-size);
+      -webkit-font-smoothing:antialiased;
+      -webkit-print-color-adjust:exact;
+      print-color-adjust:exact;
+    }
 
-  /* ✅ Ensure background colors and gradients print exactly */
-  * {
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-    color-adjust: exact !important;
-  }
+    /* Topbar/buttons */
+    .topbar{position:sticky;top:0;z-index:50;background:#ffffffcc;backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid #e5e7eb}
+    .topbar-inner{max-width:var(--maxw);margin:0 auto;padding:10px 24px;display:flex;justify-content:flex-end;gap:10px}
+    .btn{border:0;padding:8px 14px;border-radius:10px;background:var(--accent);color:#fff;cursor:pointer;font-size:var(--content-font-size);display:inline-flex;align-items:center;gap:8px}
+    .btn.secondary{background:var(--accent)}
 
-  /* Optional: remove shadows for cleaner PDF look */
-  .card {
-    box-shadow: none !important;
-  }
-}
+    /* spinner: zero width when hidden so it doesn't shift layout */
+    .spinner{
+      display:inline-block;
+      width:0;
+      height:18px;
+      overflow:hidden;
+      opacity:0;
+      visibility:hidden;
+      transition: width .18s ease, opacity .18s ease, margin-left .18s ease;
+      border-radius:50%;
+      border:3px solid rgba(255,255,255,0.28);
+      border-top-color:#fff;
+      box-sizing:content-box;
+      vertical-align:middle;
+    }
+    .spinner.active{
+      width:18px;
+      margin-left:6px;
+      opacity:1;
+      visibility:visible;
+      animation:spin 1s linear infinite;
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
 
-    @media (max-width: 880px) {
-  .main {
-    grid-template-columns: 1fr;
-  }
-  .side {
-    border-left: none;
-    border-top: 2px solid rgba(11,107,90,0.06);
-    margin-top: 20px;
-  }
-}
-</style>
+    /* layout */
+    .container{max-width:var(--maxw);margin:28px auto 40px;padding:24px}
+    .card{background:var(--card);border-radius:16px;box-shadow:0 10px 30px var(--shadow);overflow:hidden}
+
+    /* header */
+    .header{display:flex;gap:20px;padding:30px;background:linear-gradient(90deg,var(--accent) 0%,var(--accent2) 100%) !important;color:white;align-items:center;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .avatar{width:100px;height:100px;border-radius:12px;background:white;color:var(--accent);font-weight:800;font-size:clamp(18px,3vw,28px);display:flex;align-items:center;justify-content:center;flex:0 0 100px;overflow:hidden}
+    .avatar img{width:100%;height:100%;object-fit:cover;display:block}
+    h1{margin:0;font-size:clamp(20px,3.2vw,26px)}
+    .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+    .pill{background:rgba(255,255,255,0.18);padding:6px 12px;border-radius:999px;font-size:var(--content-font-size);display:inline-flex;align-items:center;gap:8px}
+    .pill svg{display:block;flex:0 0 auto}
+    .pill span{line-height:1}
+
+    .main{display:grid;grid-template-columns:1fr minmax(260px,360px);gap:24px;padding:28px}
+    @media(max-width:1000px){:root{--maxw:92vw}}
+    @media(max-width:880px){.main{grid-template-columns:1fr;padding:16px}}
+
+    .section-title{border-left:4px solid var(--accent);padding-left:8px;margin:15px 0 10px 0;color:var(--accent);font-weight:600;font-size:var(--heading-font-size)}
+    .section-block{margin-bottom:var(--section-gap)}
+
+    .job,.education-card{padding:16px;border-radius:12px;border:1px solid rgba(139,69,19,0.12);background:#fffaf5;margin-bottom:12px;font-size:var(--content-font-size)}
+    .job:hover, .education-card:hover { animation: shake 0.84s ease-in-out; box-shadow: 0 8px 16px rgba(139,69,19,0.06); }
+    @keyframes shake {0%,100%{transform:translateX(0)}25%{transform:translateX(-2px)}50%{transform:translateX(2px)}75%{transform:translateX(-1px)}}
+    .education-card{background:var(--edu-bg);border:1px solid var(--edu-border)}
+    .job h4,.education-card h4{margin:0 0 6px 0;font-size:var(--heading-font-size);display:flex;align-items:center;gap:8px}
+    .briefcase-icon{color:var(--brown);font-size:18px}
+
+    .side{padding:20px;background:linear-gradient(180deg,rgba(11,107,90,0.02),transparent);border-left:2px solid rgba(11,107,90,0.06);border-radius:12px}
+    .tech{display:flex;flex-wrap:wrap;gap:8px}
+    .tech span{background:#eef3f2;padding:6px 10px;border-radius:6px;font-size:var(--content-font-size);line-height:1.2;margin:3px;display:inline-block;flex:0 1 auto}
+    .blog-list{list-style:none;padding-left:0}
+    .blog-list li{margin-bottom:10px}
+    .blog-list a{color:var(--accent);text-decoration:none;display:inline-flex;align-items:flex-start;gap:8px;font-size:var(--content-font-size)}
+    .link-icon{color:var(--accent);font-size:var(--content-font-size);line-height:1}
+    .muted{color:var(--muted);font-size:var(--small-font-size);margin-left:var(--icon-offset)}
+
+    /* STAR sizing and alignment */
+    .job ul{margin:10px 0 0 0;padding:0;list-style:none}
+    .job ul li{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;position:relative;padding-left:0}
+    .job ul li .star{position:absolute;left:calc(var(--icon-offset) - 22px);top:6px;width:18px;height:18px;flex:0 0 18px;display:inline-flex;align-items:center;justify-content:center}
+    .job ul li div{margin-left:var(--icon-offset)}
+    .job .star svg{width:100%;height:100%;display:block}
+    .job .star{font-size:0}
+
+    footer{padding:20px;text-align:center;background:#f1f5f9;color:var(--muted);font-size:var(--small-font-size);border-top:1px solid #e2e8f0}
+
+    /* PRINT rules (ensure top gradient prints) */
+    @media print {
+      html,body{height:auto;background:#fff;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+      .topbar{display:none}
+      .container{max-width:760px;margin:8mm auto;padding:6mm}
+      .card{box-shadow:none;border-radius:8px;border:1px solid #f0f0f0}
+      .header{padding:12px;background:linear-gradient(90deg,var(--accent) 0%,var(--accent2) 100%) !important;color:#fff !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      .main{display:block;padding:12px}
+      aside.side{margin-top:12px;padding:14px}
+      .section-title{font-size:16px}
+      .tech span{background:#f3f7f6}
+      .section-block { page-break-inside: auto !important; break-inside: auto !important; }
+      .job, .education-card { page-break-inside: avoid !important; break-inside: avoid !important; }
+      .pill { background:#ffffff !important; color:var(--accent) !important }
+      *{box-shadow:none}
+    }
+
+    /* when printing in same page, hide topbar/footer visually */
+    .printing .topbar{display:none !important}
+    .printing footer{display:none !important}
+  </style>
 </head>
 <body>
   <div class="topbar">
     <div class="topbar-inner">
-      <button class="btn" id="btnPrint">🖨️ Print / Save as PDF<span class="spinner" id="pdfSpinner"></span></button>
+      <button class="btn" id="btnPrint" aria-label="Print resume">🖨️ Print / Save as PDF
+        <span class="spinner" id="pdfSpinner" aria-hidden="true"></span>
+      </button>
     </div>
   </div>
 
   <div class="container">
-    <div class="card">
+    <div class="card" id="resumeRoot">
       <div class="header">
-        <div class="avatar"><img id="avatarImg" src="avatar.jpg" alt="Vaibhav"></div>
+        <div class="avatar" aria-hidden="true"><img id="avatarImg" src="avatar.jpg" alt="Vaibhav"></div>
         <div>
-          <h1>Vaibhav Joshi</h1>
+          <h1 id="name">Vaibhav Joshi</h1>
           <div class="meta" id="metaPills"></div>
         </div>
       </div>
 
       <div class="main">
         <div>
-          <div class="section-block"><div class="section-title">Goal</div><p id="goal"></p></div>
-          <div class="section-block"><div class="section-title">Work Experience (7+ Years)</div><div id="work"></div></div>
-          <div class="section-block"><div class="section-title">Key Projects</div><div id="projects"></div></div>
-          <div class="section-block"><div class="section-title">Education</div><div id="education"></div></div>
+          <div class="section-block">
+            <div class="section-title">Goal</div>
+            <p id="goal"></p>
+          </div>
+
+          <div class="section-block">
+            <div class="section-title">Work Experience</div>
+            <div class="section-title">Work Experience (7+ Years)</div>
+            <div id="work"></div>
+          </div>
+
+          <div class="section-block">
+            <div class="section-title">Education</div>
+            <div id="education"></div>
+          </div>
+
+          <div class="section-block">
+            <div class="section-title">Core Strengths</div>
+            <ul id="strengths"></ul>
+          </div>
         </div>
+
         <aside class="side">
-          <div class="section-block"><div class="section-title">Technical Skills</div><div class="tech" id="skills"></div></div>
-          <div class="section-block"><div class="section-title">Web Links/Blogs</div><ul id="blogs"></ul></div>
-          <div class="section-block"><div class="section-title">Core Strengths</div><ul id="strengths"></ul></div>
+          <div class="section-block">
+            <div class="section-title">Technical Skills</div>
+            <div class="tech" id="skills"></div>
+          </div>
+
+          <div class="section-block">
+            <div class="section-title">Web Links / Blogs</div>
+            <ul class="blog-list" id="blogs"></ul>
+          </div>
         </aside>
       </div>
+
       <footer>Made with ❤️ — Vaibhav Joshi</footer>
     </div>
   </div>
 
   <script>
-    /* --- Data --- (same as your previous working version) */
-    const profile={goal:'Aspiring to take on challenging roles in iOS/Flutter development, leveraging technical expertise, project leadership, and collaboration to drive innovative, business-focused solutions.',metaPills:['Gangotri Colony, RTO Road, Haldwani, Nainital (Uttarakhand), India','+91 97618 88686',{label:'vbhvjshi@gmail.com',href:'mailto:vbhvjshi@gmail.com'},{label:'LinkedIn Profile',href:'https://www.linkedin.com/in/vaibhav-joshi-83000813b/'}]};
-    const work=[{company:'Cubastion Consulting',role:'Consultant',from:'Dec 2022',to:'Present',bullets:['Led mobile and CRM teams handling code reviews, planning, and releases.','Reduced crash rate by 40% through profiling and error handling.','Improved cold-start time by 25% via lazy-loading modules.','Managed App Store releases and monitored performance.','Mentored developers to maintain quality.']},{company:'Sysmind Tech',role:'iOS Developer',from:'May 2022',to:'Dec 2022',bullets:['Built and delivered features enhancing engagement.','Improved API reliability through retry logic.','Refactored UI using MVVM pattern.','Resolved production bugs and improved stability.']},{company:'Evon Technologies',role:'iOS Developer',from:'Jul 2021',to:'May 2022',bullets:['Developed stable iOS apps and SDK integrations.','Implemented push notifications and payment flows.','Optimized animations for performance.','Promoted Swift and Objective-C best practices.']},{company:'Yugasa Software Labs',role:'iOS Developer',from:'Aug 2019',to:'Jul 2021',bullets:['Developed client apps and maintained App Store releases.','Enhanced UI/UX with adaptive layouts.','Integrated REST APIs and retry handling.','Reduced hotfix frequency via release QA process.']},{company:'Cacao Solutions',role:'iOS Developer',from:'Jul 2018',to:'Aug 2019',bullets:['Built iOS apps with Core Data and custom network layer.','Designed onboarding and navigation flows.','Refactored legacy code to reduce technical debt.']}];
-    const projects=[{name:'AIBOBOA',link:'https://apps.apple.com/lb/app/aiboboa/id1511900581',role:'Developer',tech:'iOS, Swift',responsibilities:['Gathered requirements and defined deliverables.','Developed core modules and deployed app.','Bridged communication between client and team.']},{name:'Golf Been',link:'https://apps.apple.com/us/app/golf-been/id1573239854',role:'Developer, Team Lead',tech:'iOS, Swift',responsibilities:['Supervised end-to-end development lifecycle.','Directed team and ensured timely delivery.','Coordinated with stakeholders for alignment.']},{name:'Innodesigns',link:'https://apps.apple.com/us/app/innodesigns/id1586313419',role:'Developer',tech:'iOS, Swift',responsibilities:['Implemented critical app features ensuring stability.','Managed team progress and deadlines.','Delivered to App Store successfully.']},{name:'DSD TABS',link:'https://testflight.apple.com/join/Y1KMYGTk',role:'Lead Developer',tech:'Flutter',responsibilities:['Led architecture and performance optimization.','Handled sprints and task distribution.','Delivered efficient, stable builds.']},{name:'VCare Blue Voltas',links:[{platform:'iOS',url:'https://apps.apple.com/in/app/vcare-blue-voltas/id1473801658'},{platform:'Android',url:'https://play.google.com/store/apps/details?id=com.cubastion.voltasvcare&hl=en_IN&pli=1'}],role:'Lead Developer',tech:'Swift, Objective-C, Flutter',responsibilities:['Led hybrid development combining native and Flutter.','Enhanced app speed and responsiveness.','Collaborated across teams for timely delivery.']}];
-    const education=[{icon:'🎓',title:'Master of Computer Applications (MCA)',detail:'Graphic Era Hill University, Bhimtal (2015–2018)'},{icon:'🎓',title:'Bachelor of Science (B.Sc.)',detail:'M.B.P.G. College, Haldwani (2012–2015)'},{icon:'🏫',title:'Intermediate & High School',detail:'K.V. Haldwani Cantt & K.V. IVRI Mukteshwar (2007 - 2011)'}];
-    const strengths=['Leadership and sprint management.','Mentorship and collaboration.','Effective problem-solving.','Cross-team communication.','Deep iOS architecture expertise.','Adaptable to emerging technologies.'];
-    const skills=['Swift','Objective-C','Flutter','iOS','XCode','MVC','MVVM','MVP','SOLID Principles','Core Data','Realm','SQLite','GitHub','GitLab','Bitbucket','Jira','Stripe','Google Maps SDK','REST API','Firebase','App Store Connect','Push Notifications','Location Services'];
-    const blogs=[{title:'Create a simple loader in Swift for iOS App',url:'https://medium.com/@vbhvjshi/creating-a-simple-loader-in-swift-for-your-ios-app-d49855c18894'},{title:'Mastering Async/Await in Swift: A Game-Changer for iOS Development',url:'https://medium.com/@vbhvjshi/mastering-async-await-in-swift-a-game-changer-for-ios-development-031bbebd41f4'}];
-    const STAR_SVG='<svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3L21 9.2l-5 3.9L17.8 21 12 17.5 6.2 21 7 13.1 2 9.2l6.1-.9L12 2z" stroke="#0b6b5a" stroke-width="1.4" fill="none"/></svg>';
-    const escapeHtml=s=>String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-    const pillNode=p=>typeof p==='string'?`<div class="pill">📍 ${escapeHtml(p)}</div>`:`<div class="pill">🔗 <a href="${escapeHtml(p.href)}" target="_blank">${escapeHtml(p.label)}</a></div>`;
-    const renderWork=()=>document.getElementById('work').innerHTML=work.map(w=>`<div class="job"><h4>💼 ${escapeHtml(w.company)} — ${escapeHtml(w.role)}</h4><div class="muted">${escapeHtml(w.from)} – ${escapeHtml(w.to)}</div><ul>${w.bullets.map(b=>`<li><span class="star">${STAR_SVG}</span><div>${escapeHtml(b)}</div></li>`).join('')}</ul></div>`).join('');
-    const renderProjects=()=>document.getElementById('projects').innerHTML=projects.map(p=>{const appLinks=p.links?p.links.map(l=>`<a href="${escapeHtml(l.url)}" target="_blank">${escapeHtml(l.platform)} App</a>`).join(' | '):`<a href="${escapeHtml(p.link)}" target="_blank">App Link</a>`;return`<div class="job"><h4>📱 ${escapeHtml(p.name)} — ${appLinks}</h4><div class="muted">${escapeHtml(p.role)} | ${escapeHtml(p.tech)}</div><ul>${p.responsibilities.map(r=>`<li><span class="star">${STAR_SVG}</span><div>${escapeHtml(r)}</div></li>`).join('')}</ul></div>`;}).join('');
-    const renderEducation=()=>document.getElementById('education').innerHTML=education.map(e=>`<div class="education-card"><h4>${e.icon} ${escapeHtml(e.title)}</h4><div class="muted">${escapeHtml(e.detail)}</div></div>`).join('');
-    const renderStrengths=()=>document.getElementById('strengths').innerHTML=strengths.map(s=>`<li>${escapeHtml(s)}</li>`).join('');
-    const renderSkills=()=>document.getElementById('skills').innerHTML=skills.map(s=>`<span>${escapeHtml(s)}</span>`).join('');
-    const renderBlogs=()=>document.getElementById('blogs').innerHTML=blogs.map(b => `<li><span class="link-icon">🔗  </span><a href="${escapeHtml(b.url)}" target="_blank"><span class="link-text">${escapeHtml(b.title)}</a></span></li>`).join('');
-    const renderMeta=()=>document.getElementById('metaPills').innerHTML=profile.metaPills.map(pillNode).join('');
-    const renderGoal=()=>document.getElementById('goal').textContent=profile.goal;
-    renderGoal();renderMeta();renderWork();renderProjects();renderEducation();renderStrengths();renderSkills();renderBlogs();
-    document.getElementById('btnPrint').addEventListener('click',()=>window.print());
+    // ========== editable content arrays ==========
+    const profile = {
+      name: 'Vaibhav Joshi',
+      goal: 'Aspiring to take on challenging roles in iOS/Flutter development, leveraging technical expertise, project leadership, and collaboration to drive innovative, business-focused solutions.',
+      metaPills: [
+        'Gangotri Colony, RTO Road, Haldwani, Distt. Nainital (Uttarakhand), India',
+        '+91 97618 88686',
+        { label: 'vbhvjshi@gmail.com', href: 'mailto:vbhvjshi@gmail.com' },
+        { label: 'LinkedIn Profile', href: 'https://www.linkedin.com/in/vaibhav-joshi-83000813b/' }
+      ]
+    };
+
+    const work = [
+      {
+        company: 'Cubastion Consulting',
+        role: 'Consultant',
+        from: 'Dec 12, 2022',
+        to: 'Present',
+        bullets: [
+          'Led a mobile and CRM team of 10–13 engineers, handling planning, code reviews and releases across three apps.',
+          'Reduced app crash rate by ~40% through targeted profiling, better error handling and automated tests.',
+          'Improved cold-start time by ~25% by deferring heavy work and lazy-loading non-essential modules.',
+          'Owned App Store releases and post-release monitoring to rapidly ship fixes.',
+          'Mentored junior developers through focused code reviews and one-on-ones.'
+        ]
+      },
+      {
+        company: 'Sysmind Tech',
+        role: 'iOS Developer',
+        from: 'May 16, 2022',
+        to: 'Dec 9, 2022',
+        bullets: [
+          'Built and shipped core features end-to-end that improved user engagement for the feature cohort.',
+          'Stabilized API integrations by coordinating closely with backend engineers and adding retries.',
+          'Introduced MVVM and reusable UI components to reduce duplicated code and speed delivery.',
+          'Investigated production issues and shipped fast fixes to improve reliability.'
+        ]
+      },
+      {
+        company: 'Evon Technologies',
+        role: 'iOS Developer',
+        from: 'Jul 20, 2021',
+        to: 'May 12, 2022',
+        bullets: [
+          'Delivered maintainable, production-ready code and collaborated on trade-offs with product and design.',
+          'Integrated push notifications, Stripe payments and third-party SDKs while ensuring stability.',
+          'Optimized scenes and animations for smoother UI on lower-end devices.',
+          'Shared Swift and Objective-C best practices with the team through workshops and reviews.'
+        ]
+      },
+      {
+        company: 'Yugasa Software Labs',
+        role: 'iOS Developer',
+        from: 'Aug 29, 2019',
+        to: 'Jul 19, 2021',
+        bullets: [
+          'Developed and released multiple client apps to the App Store and maintained them in production.',
+          'Improved UI/UX using Auto Layout and selective animations to raise perceived quality.',
+          'Integrated third-party APIs and real-time updates with robust retry logic.',
+          'Worked with QA to create release checklists and reduce post-release hotfixes.'
+        ]
+      },
+      {
+        company: 'Cacao Solutions',
+        role: 'iOS Developer',
+        from: 'Jul 23, 2018',
+        to: 'Aug 26, 2019',
+        bullets: [
+          'Built production iOS apps from scratch with local persistence (Core Data, SQLite) and a clean network layer.',
+          'Designed onboarding and navigation flows that improved early user retention.',
+          'Refactored legacy code to reduce technical debt and make maintenance easier.'
+        ]
+      }
+    ];
+
+    const education = [
+      { icon: '🎓', title: 'Master of Computer Applications (MCA)', detail: 'Graphic Era Hill University, Bhimtal (2015 - 2018)' },
+      { icon: '🎓', title: 'Bachelor of Science (B.Sc.)', detail: 'M.B.P.G. College, Haldwani (2012 - 2015)' },
+      { icon: '🏫', title: 'Intermediate & High School', detail: 'K.V. Haldwani Cantt & K.V. IVRI Mukteshwar (2007 - 2011)' }
+    ];
+
+    const strengths = [
+      'Experienced team lead: plan sprints, delegate, and deliver on time while keeping quality high.',
+      'Mentoring & knowledge sharing — I enjoy helping peers grow and reducing ramp time.',
+      'Problem solver — diagnose production issues quickly and ship pragmatic fixes.',
+      'Strong communicator — align product, design and backend teams to ship features faster.',
+      'Deep iOS knowledge — architecture, profiling, memory management and best practices.',
+      'Adaptable — I pick up new tools and patterns quickly to solve the right problem.'
+    ];
+
+    const skills = [
+      'Swift','Objective-C (Objective C)','Flutter','iOS','XCode','Android Studio','Figma','MVC','MVVM','MVP','SOLID Principle',
+      'Core Data','Realm','SQLite','Getx','Bloc','State Management','Micro frontend','GitHub/Git/GitLab','Bitbucket','Jira',
+      'Social Network Integration (Google, Facebook)','Payment Gateway (Stripe)','Location Services','Push Notifications','REST API',
+      'Third Party Libraries','Google Maps SDK','App Store Connect','Alamofire','Agile Methodologies','Firebase'
+    ];
+
+    const blogs = [
+      { title: 'Create a simple loader in swift for iOS App', url: 'https://medium.com/@vbhvjshi/creating-a-simple-loader-in-swift-for-your-ios-app-d49855c18894' },
+      { title: 'Mastering Async/Await in Swift: A Game-Changer for iOS Development', url: 'https://medium.com/@vbhvjshi/mastering-async-await-in-swift-a-game-changer-for-ios-development-031bbebd41f4' }
+    ];
+
+    // ========== helpers & renderers ==========
+    function escapeHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+    // small consistent star svg
+    const STAR_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2l2.9 6.3L21 9.2l-5 3.9L17.8 21 12 17.5 6.2 21 7 13.1 2 9.2l6.1-.9L12 2z" stroke="#0b6b5a" stroke-width="1.4" fill="none" stroke-linejoin="round" stroke-linecap="round"/></svg>';
+
+    function pillNode(p){
+      if(typeof p === 'string'){
+        const raw = p; const safe = escapeHtml(raw);
+        if(/^\+?\d/.test(raw) || raw.toLowerCase().includes('mobile')){
+          const phoneSvg = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="display:block"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 3.08 4.18 2 2 0 0 1 5 2h3a2 2 0 0 1 2 1.72c.12 1.05.37 2.07.72 3.04a2 2 0 0 1-.45 2.11L9.91 10.91a14 14 0 0 0 6 6l1.06-1.06a2 2 0 0 1 2.11-.45c.97.35 1.99.6 3.04.72A2 2 0 0 1 22 16.92z" stroke="#0b6b5a" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+          return `<div class="pill">${phoneSvg}<span>${safe}</span></div>`;
+        }
+        return `<div class="pill">📍 <span>${safe}</span></div>`;
+      }
+
+      const label = p.label || ''; const href = p.href || '#';
+      const safeLabel = escapeHtml(label); const safeHref = escapeHtml(href); const tl = label.toLowerCase();
+
+      if(safeHref.startsWith('mailto:') || tl.includes('@')){
+        return `<div class="pill">✉️ <a href="${safeHref}" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none">${safeLabel}</a></div>`;
+      }
+      if(tl.includes('linkedin') || safeHref.includes('linkedin.com')){
+        const liSvg = '<svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="display:block;border-radius:3px"><rect width="100%" height="100%" rx="3" fill="#0A66C2"/><g transform="translate(3,3) scale(0.75)" fill="#ffffff"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.49 6 1.11 6 0 4.88 0 3.5 0 2.12 1.11 1 2.49 1 3.86 1 4.98 2.12 4.98 3.5zM0 8.25h4.98V24H0z"/><path d="M8 8.25h4.78v2.15h.07c.67-1.27 2.3-2.6 4.73-2.6 5.06 0 6 3.33 6 7.66V24H18v-7.73c0-1.84-.03-4.22-2.57-4.22-2.57 0-2.96 2-2.96 4.08V24H8z"/></g></svg>';
+        return `<div class="pill">${liSvg}<a href="${safeHref}" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none;margin-left:6px">${safeLabel}</a></div>`;
+      }
+
+      return `<div class="pill">🔗 <a href="${safeHref}" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none">${safeLabel}</a></div>`;
+    }
+
+    // renderers
+    function renderMeta(){ document.getElementById('metaPills').innerHTML = profile.metaPills.map(pillNode).join(''); }
+    function renderGoal(){ document.getElementById('goal').textContent = profile.goal; }
+    function renderWork(){
+      document.getElementById('work').innerHTML = work.map(w=>{
+        const bullets = (w.bullets && w.bullets.length) ? `<ul>${w.bullets.map(b=>`<li><span class="star">${STAR_SVG}</span><div>${escapeHtml(b)}</div></li>`).join('')}</ul>` : '';
+        return `<div class="job"><h4><span class="briefcase-icon">💼</span> ${escapeHtml(w.company)} — ${escapeHtml(w.role)}</h4><div class="muted">${escapeHtml(w.from)} – ${escapeHtml(w.to)}</div>${bullets}</div>`;
+      }).join('');
+    }
+    function renderEducation(){ document.getElementById('education').innerHTML = education.map(e=>`<div class="education-card"><h4><span>${e.icon}</span> ${escapeHtml(e.title)}</h4><div class="muted">${escapeHtml(e.detail)}</div></div>`).join(''); }
+    function renderStrengths(){ document.getElementById('strengths').innerHTML = strengths.map(s=>`<li>${escapeHtml(s)}</li>`).join(''); }
+    function renderSkills(){ document.getElementById('skills').innerHTML = skills.map(s=>`<span>${escapeHtml(s)}</span>`).join(''); }
+    function renderBlogs(){ document.getElementById('blogs').innerHTML = blogs.map(b=>`<li><a href="${escapeHtml(b.url)}" target="_blank" rel="noopener noreferrer"><span class="link-icon">🔗</span>${escapeHtml(b.title)}</a></li>`).join(''); }
+
+    // boot
+    renderMeta(); renderGoal(); renderWork(); renderEducation(); renderStrengths(); renderSkills(); renderBlogs();
+
+    // avatar fallback
+    (function(){
+      const img = document.getElementById('avatarImg');
+      const avatarBox = img && img.parentElement;
+      function showInitials(){
+        if(!avatarBox) return;
+        avatarBox.innerHTML = '<div style="font-weight:800;font-size:24px;color:var(--accent);display:flex;align-items:center;justify-content:center;height:100%;">VJ</div>';
+      }
+      if(img){
+        img.addEventListener('error', ()=>{ showInitials(); });
+        img.addEventListener('load', ()=>{ img.style.display='block'; });
+        if(!img.src || img.src.trim()===''){ img.src = 'avatar.jpg'; }
+        setTimeout(()=>{ if(img.complete && img.naturalWidth===0){ showInitials(); } }, 500);
+      }
+    })();
+
+    // SAME-PAGE print handler (hide UI temporarily, then call window.print, restore on afterprint)
+    document.addEventListener('DOMContentLoaded', function(){
+      const btn = document.getElementById('btnPrint');
+      const spinner = document.getElementById('pdfSpinner');
+
+      if (!btn) return console.error('Print button missing');
+
+      async function doPrintSamePage(){
+        // show spinner
+        if(spinner) spinner.classList.add('active');
+
+        // add printing class to body so CSS hides topbar/footer etc.
+        document.body.classList.add('printing');
+
+        // Wait a tick to let the paint happen (so UI is hidden when print dialog captures)
+        await new Promise(r => setTimeout(r, 260));
+
+        // Attach afterprint cleanup
+        const cleanup = () => {
+          if(spinner) spinner.classList.remove('active');
+          document.body.classList.remove('printing');
+          try { window.removeEventListener('afterprint', cleanup); } catch(e){}
+          try { window.matchMedia('print').removeListener(cleanup); } catch(e){}
+        };
+
+        // Some browsers use afterprint, others use matchMedia('print').addListener
+        window.addEventListener('afterprint', cleanup);
+        try {
+          const m = window.matchMedia('print');
+          if (m && m.addListener) m.addListener(cleanup);
+        } catch(e){ /* ignore */ }
+
+        // call print in same page (user chooses Save as PDF or printer)
+        try {
+          window.print();
+          // if afterprint isn't fired (rare), schedule cleanup as safety
+          setTimeout(cleanup, 5000);
+        } catch (err) {
+          console.warn('window.print() failed, running fallback cleanup', err);
+          cleanup();
+        }
+      }
+
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        doPrintSamePage();
+      });
+    });
+
+    // Responsive reorder: move sidebar after Education on mobile
+    (function(){
+      const MAIN_BREAK = 880;
+      const main = document.querySelector('.main');
+      if(!main) return;
+      const left = main.querySelector('div');
+      const aside = main.querySelector('aside');
+      if(!left || !aside) return;
+
+      function findEducation(){
+        const blocks = Array.from(left.querySelectorAll('.section-block'));
+        for(const b of blocks){
+          const t = b.querySelector('.section-title');
+          if(t && t.textContent && t.textContent.trim().toLowerCase().startsWith('education')) return b;
+        }
+        return null;
+      }
+
+      const educationBlock = findEducation();
+
+      function reorder(){
+        if(window.innerWidth <= MAIN_BREAK){
+          if(educationBlock && educationBlock.parentNode){
+            if(aside.parentNode !== left){
+              educationBlock.after(aside);
+            } else {
+              if(educationBlock.nextElementSibling !== aside){
+                educationBlock.after(aside);
+              }
+            }
+          }
+        } else {
+          if(aside.parentNode !== main){
+            main.appendChild(aside);
+          } else {
+            if(aside.parentNode === left) main.appendChild(aside);
+          }
+        }
+      }
+
+      reorder();
+      window.addEventListener('resize', reorder);
+      setTimeout(reorder, 300);
+    })();
   </script>
 </body>
 </html>
