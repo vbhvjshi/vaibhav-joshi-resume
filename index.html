@@ -60,6 +60,8 @@
   .tech span{background:#eef3f2;padding:6px 10px;border-radius:6px;font-size:var(--content-font-size);}
   #blogs li { margin-bottom:5.5px; } /* Space between blog links */
   #blogs {list-style: none;padding-left: 0;margin: 0;}
+  #blogs a {text-decoration: underline;text-underline-offset: 3px;}
+  #blogs a::before {text-decoration: none !important;}
   #strengths { list-style-position: inside; padding-left: 24px; } /* Proper left padding for Core Strengths */
   footer{padding:20px;text-align:center;background:#f1f5f9;color:var(--muted);font-size:var(--small-font-size);border-top:1px solid #e2e8f0;}
   @media print {.topbar,footer{display:none} .container{max-width:760px;margin:8mm auto;padding:6mm}}
@@ -126,7 +128,7 @@
     const renderEducation=()=>document.getElementById('education').innerHTML=education.map(e=>`<div class="education-card"><h4>${e.icon} ${escapeHtml(e.title)}</h4><div class="muted">${escapeHtml(e.detail)}</div></div>`).join('');
     const renderStrengths=()=>document.getElementById('strengths').innerHTML=strengths.map(s=>`<li>${escapeHtml(s)}</li>`).join('');
     const renderSkills=()=>document.getElementById('skills').innerHTML=skills.map(s=>`<span>${escapeHtml(s)}</span>`).join('');
-    const renderBlogs=()=>document.getElementById('blogs').innerHTML=blogs.map(b=>`<li><a href="${escapeHtml(b.url)}" target="_blank">🔗 ${escapeHtml(b.title)}</a></li>`).join('');
+    const renderBlogs=()=>document.getElementById('blogs').innerHTML=blogs.map(b => `<li><span class="link-icon">🔗  </span><a href="${escapeHtml(b.url)}" target="_blank"><span class="link-text">${escapeHtml(b.title)}</a></span></li>`).join('');
     const renderMeta=()=>document.getElementById('metaPills').innerHTML=profile.metaPills.map(pillNode).join('');
     const renderGoal=()=>document.getElementById('goal').textContent=profile.goal;
     renderGoal();renderMeta();renderWork();renderProjects();renderEducation();renderStrengths();renderSkills();renderBlogs();
