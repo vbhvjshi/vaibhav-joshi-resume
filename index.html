@@ -18,7 +18,7 @@
     --maxw:min(1100px,94vw);
     --heading-font-size:18px;
     --content-font-size:14px;
-    --small-font-size:13px;
+    --small-font-size:12px;
     --section-gap:30px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
@@ -58,14 +58,28 @@
   .side {display: flex;flex-direction: column;gap: 24px;padding: 20px;background: linear-gradient(180deg, rgba(11,107,90,0.02), transparent);border-left: 2px solid rgba(11,107,90,0.06);border-radius: 12px;}
   .side .section-block {margin-bottom: 0px !important;}
   .tech{display:flex;flex-wrap:wrap;gap:8px;}
-  .tech span{background:#eef3f2;padding:6px 10px;border-radius:6px;font-size:var(--content-font-size);}
+  .tech span{background:#eef3f2;padding:6px 10px;border-radius:6px;font-size:var(--small-font-size);}
   #blogs li { margin-bottom:5.5px; } /* Space between blog links */
   #blogs {list-style: none;padding-left: 0;margin: 0;}
   #blogs a {text-decoration: underline;text-underline-offset: 3px;}
   #blogs a::before {text-decoration: none !important;}
   #strengths { list-style-position: inside; padding-left: 24px; } /* Proper left padding for Core Strengths */
   footer{padding:20px;text-align:center;background:#f1f5f9;color:var(--muted);font-size:var(--small-font-size);border-top:1px solid #e2e8f0;}
-  @media print {.topbar,footer{display:none} .container{max-width:760px;margin:8mm auto;padding:6mm}}
+  @media print {.topbar,footer {display: none;}.container {max-width: 760px;margin: 8mm auto;padding: 6mm;}
+
+  /* ✅ Ensure background colors and gradients print exactly */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  /* Optional: remove shadows for cleaner PDF look */
+  .card {
+    box-shadow: none !important;
+  }
+}
+
     @media (max-width: 880px) {
   .main {
     grid-template-columns: 1fr;
