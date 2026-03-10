@@ -1,11 +1,18 @@
 <!doctype html>
+<!--
+  Vaibhav Joshi — Resume
+  Single-page resume with print/PDF support, responsive layout, and JS-driven content.
+-->
 <html lang="en">
 
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=1200,initial-scale=1" />C
+  <meta name="viewport" content="width=1200,initial-scale=1" />
   <title>Vaibhav Joshi — Resume</title>
   <style>
+    /* =========================
+       CSS Variables (Design Tokens)
+       ========================= */
     :root {
       /* fonts & sizes (variables requested) */
       --section-title-size: 15px;
@@ -33,6 +40,7 @@
       --section-padding: 10px;
     }
 
+    /* Link row: icon + text (used in Links section) */
     .link-item {
       display: flex;
       align-items: flex-start;
@@ -40,6 +48,7 @@
       margin-bottom: 6px;
     }
 
+    /* Small icon before link text */
     .link-icon {
       width: 12px;
       height: 12px;
@@ -50,6 +59,7 @@
       margin-left: 10px;
     }
 
+    /* Styled link text (accent color, underline) */
     .link-text {
       font-size: 11px;
       color: var(--accent-2);
@@ -60,7 +70,9 @@
       /* FIX: proper line box when wrapped */
     }
 
-    /* basic reset */
+    /* =========================
+       Base / Reset
+       ========================= */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -91,7 +103,9 @@
       text-decoration: underline
     }
 
-    /* topbar */
+    /* =========================
+       Top Bar (Print button; hidden in print)
+       ========================= */
     .topbar {
       display: flex;
       justify-content: flex-end;
@@ -108,7 +122,7 @@
       font-size: 12px
     }
 
-    /* container sized to A4 width on screen (helpful preview) */
+    /* Page container: A4 width for screen preview */
     .container {
       max-width: 210mm;
       margin: 6px auto;
@@ -116,6 +130,7 @@
       width: calc(210mm - 20px)
     }
 
+    /* Main card wrapper (white panel with shadow) */
     .card {
       background: var(--card-bg);
       border-radius: 14px;
@@ -124,7 +139,9 @@
       overflow: hidden
     }
 
-    /* header */
+    /* =========================
+       Header (name, role, avatar, contact pills)
+       ========================= */
     .header {
       display: flex;
       gap: 14px;
@@ -137,6 +154,7 @@
       print-color-adjust: exact !important;
     }
 
+    /* Profile photo container */
     .avatar {
       width: 72px;
       height: 72px;
@@ -156,6 +174,7 @@
       border-radius: 10px;
     }
 
+    /* Title block (name + role + contact) */
     .title {
       flex: 1
     }
@@ -180,6 +199,7 @@
       flex-wrap: wrap
     }
 
+    /* Contact pill (location, phone, email, LinkedIn) */
     .pill {
       background: rgba(255, 255, 255, 0.12);
       padding: 6px 10px;
@@ -192,7 +212,9 @@
       align-items: center
     }
 
-    /* main grid (keep grid for screen + print) */
+    /* =========================
+       Main Layout: 2-column grid (content | sidebar)
+       ========================= */
     .main {
       display: grid;
       grid-template-columns: 1fr 270px;
@@ -200,7 +222,7 @@
       margin-top: 12px
     }
 
-    /* section box style */
+    /* Reusable section container (summary, work, projects, skills, etc.) */
     .section-box {
       background: linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(250, 252, 252, 1));
       border-radius: var(--section-radius);
@@ -209,6 +231,7 @@
       border: 1px solid rgba(10, 20, 33, 0.05);
     }
 
+    /* Section heading (e.g. "Work History", "Technical Skills") */
     .section-title {
       font-weight: 900;
       color: var(--accent-3);
@@ -218,9 +241,9 @@
       letter-spacing: 0.2px;
     }
 
-    /* experience / project compacting */
-
-    /* Company box*/
+    /* =========================
+       Work History (job cards)
+       ========================= */
     .job {
       padding: 8px;
       border-radius: 8px;
@@ -229,13 +252,11 @@
       border: 1px solid rgba(11, 107, 90, 0.04)
     }
 
-    /* Company name box*/
     .job h4 {
       font-size: 12px;
       font-weight: 700
     }
 
-    /* Box for Duration in company*/
     .job .meta {
       font-size: 10px;
       color: var(--muted);
@@ -244,7 +265,6 @@
       text-decoration: underline;
     }
 
-    /* Bullet points under company*/
     .job ul {
       list-style: none;
       margin: 0;
@@ -268,6 +288,7 @@
       gap: 8px;
     }
 
+    /* Custom star bullet for job list items */
     .job li::before {
       content: "";
       width: 14px;
@@ -279,7 +300,9 @@
       background-image: url("data:image/svg+xml,%3Csvg fill='none' stroke='%230b6b5a' stroke-width='1.5' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 2l2.8 6.1 6.2.9-4.5 3.8 1.2 6.2L12 16.9 6.3 19 7.5 12.8 3 9.2l6.2-.9L12 2z'/%3E%3C/svg%3E");
     }
 
-    /* Education star bullets */
+    /* =========================
+       Education (star bullets, period)
+       ========================= */
     .edu-item {
       display: flex;
       align-items: center;
@@ -309,6 +332,7 @@
       line-height: 1.3;
     }
 
+    /* Core strengths list item (star bullet) */
     .str-item {
       display: flex;
       align-items: flex-start;
@@ -328,7 +352,9 @@
       background-image: url("data:image/svg+xml,%3Csvg fill='none' stroke='%230b6b5a' stroke-width='1.5' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 2l2.8 6.1 6.2.9-4.5 3.8 1.2 6.2L12 16.9 6.3 19 7.5 12.8 3 9.2l6.2-.9L12 2z'/%3E%3C/svg%3E");
     }
 
-    /* projects: clickable name + small details on same line */
+    /* =========================
+       Key Projects (name, links, tech, role)
+       ========================= */
     .project-row {
       display: flex;
       flex-direction: column;
@@ -388,11 +414,14 @@
       margin-left: 16px;
     }
 
-    /* sidebar */
+    /* =========================
+       Sidebar (right column: skills, education, links, strengths)
+       ========================= */
     .side .section-box {
       padding: 10px
     }
 
+    /* Skill chips (wrap, gap) */
     .skills {
       display: flex;
       flex-wrap: wrap;
@@ -421,12 +450,13 @@
       color: #111
     }
 
+    /* Muted/secondary text color */
     .muted {
       color: var(--muted);
       font-size: 11px
     }
 
-    /* footer hidden on print (UI) */
+    /* On-screen footer (hidden when printing) */
     footer.app-ui {
       display: flex;
       justify-content: center;
@@ -441,7 +471,7 @@
      ========================= */
     @media print {
 
-      /* FORCE SYMMETRIC PAGE MARGINS */
+      /* A4 page size and margins for print */
       @page {
         size: A4;
         margin: 8mm;
@@ -465,7 +495,7 @@
         display: none !important;
       }
 
-      /* SINGLE SOURCE OF HORIZONTAL PADDING */
+      /* Full width, no extra padding in print */
       .container {
         width: 100%;
         max-width: 100%;
@@ -517,7 +547,7 @@
         font-size: 11px
       }
 
-      /* avoid splitting */
+      /* Keep sections/jobs/projects from breaking across pages */
       .section-box,
       .job,
       .project-row {
@@ -525,7 +555,7 @@
         break-inside: avoid;
       }
 
-      /* NO SHADOWS / PDF SAFE */
+      /* Remove shadows/filters; preserve colors in PDF */
       * {
         box-shadow: none !important;
         text-shadow: none !important;
@@ -535,7 +565,7 @@
       }
     }
 
-    /* accessibility focus */
+    /* Keyboard/focus outline for accessibility */
     a:focus,
     button:focus {
       outline: 2px solid rgba(11, 107, 90, 0.18);
@@ -543,8 +573,8 @@
     }
 
     /* =========================
-   FORCE SCREEN = PDF LOOK
-   ========================= */
+       Print: force screen-like appearance (fonts, colors, no washout)
+       ========================= */
     @media print {
 
       html,
@@ -590,13 +620,15 @@
 </head>
 
 <body>
+  <!-- Top bar: Print / Save PDF button (hidden in print) -->
   <div class="topbar" role="toolbar">
     <button class="btn" id="btnPrint">Print / Save PDF</button>
   </div>
 
+  <!-- A4-sized container; content injected by JS -->
   <div class="container" id="page">
     <div class="card" role="document" aria-label="Resume — Vaibhav Joshi">
-      <!-- header -->
+      <!-- Header: avatar, name, role, contact pills (populated by JS) -->
       <header class="header" role="banner">
         <div class="avatar" id="avatar">
           <img
@@ -606,14 +638,14 @@
         <div class="title">
           <div class="name" id="name"></div>
           <div class="role" id="role"></div>
-          <div class="contact" id="contactPills"></div>
+          <!-- Contact pills rendered here by JS (single element; duplicate id removed) -->
           <div class="contact" id="contactPills" aria-label="Contact information"></div>
         </div>
       </header>
 
-      <!-- main grid -->
+      <!-- Main: 2-column grid — left = summary, work, projects; right = sidebar -->
       <main class="main" role="main" id="mainGrid">
-        <!-- left column -->
+        <!-- Left column: summary, work history, key projects -->
         <div>
           <section class="section-box" aria-labelledby="summaryTitle">
             <div class="section-title" id="summaryTitle">Professional Summary</div>
@@ -622,9 +654,7 @@
 
           <section class="section-box" aria-labelledby="expTitle" style="margin-top:12px">
             <div class="section-title" id="expTitle">Work History</div>
-            <div id="workList">
-              <!-- populated by JS -->
-            </div>
+            <div id="workList"><!-- Work history entries rendered by JS from WORK[] --></div>
           </section>
 
           <section class="section-box" aria-labelledby="projectsTitle" style="margin-top:12px">
@@ -633,7 +663,7 @@
           </section>
         </div>
 
-        <!-- right column (sidebar) -->
+        <!-- Right column (sidebar): skills, education, links, core strengths -->
         <aside class="side">
           <div class="section-box" aria-labelledby="skillsTitle">
             <div class="section-title" id="skillsTitle">Technical Skills</div>
@@ -664,8 +694,11 @@
 
   <script>
     /* ===========================
-       Content variables (single place)
+       RESUME DATA (single source of truth)
+       Edit below to update name, role, work, projects, skills, etc.
        =========================== */
+
+    /* Font tokens (optional; CSS :root is primary) */
     const FONT = {
       family: "Inter, Arial, Helvetica, sans-serif",
       base: "11px",
@@ -673,6 +706,7 @@
       heading: "13px"
     };
 
+    /* Name, role, summary, and contact (location, phone, email, LinkedIn) */
     const PROFILE = {
       name: "Vaibhav Joshi",
       role: "Sr. iOS Engineer | Flutter — 7.5+ years",
@@ -685,6 +719,7 @@
       ]
     };
 
+    /* Work history: company, role, period, bullet points */
     const WORK = [
       {
         company: "Cubastion Consulting",
@@ -738,6 +773,7 @@
       }
     ];
 
+    /* Education entries: title (degree/school), period */
     const EDUCATION = [
       { title: "MCA — Graphic Era Hill University", period: "2015–2018" },
       { title: "B.Sc — M.B.P.G. College", period: "2012–2015" },
@@ -745,6 +781,7 @@
       { title: "Highschool", period: "2008–2009" }
     ];
 
+    /* Key projects: name, url (iOS), url2 (Android optional), role, tech, resp */
     const PROJECTS = [
         { name: "AIBOBOA", url: "https://apps.apple.com/lb/app/aiboboa/id1511900581", role: "Developer", tech: "iOS, Swift", resp: "Collaborated with stakeholders; improved app stability; managed App Store deployment." },
         { name: "Golf Been", url: "https://apps.apple.com/us/app/golf-been/id1573239854", role: "Developer, Team Lead", tech: "iOS, Swift", resp: "Drove development; coordinated with client; guided team execution." },
@@ -753,6 +790,7 @@
         { name: "VCare Blue Voltas", url: "https://apps.apple.com/in/app/vcare-blue-voltas/id1473801658", url2: "https://play.google.com/store/apps/details?id=com.cubastion.voltasvcare&hl=en_IN&pli=1", role: "Lead Developer", tech: "Swift, Objective-C, Flutter", resp: "Led cross-platform delivery; improved performance; ensured on-time releases." }
       ];
 
+    /* Technical skills (displayed as chips in sidebar) */
     const SKILLS = [
         'Swift', 'Objective-C', 'Flutter', 'iOS', 'XCode', 'Android Studio', 'Figma', 'MVC', 'MVVM', 'MVP', 'SOLID Principle', 'AI', 'ChatGPT', 'Cursor', 
         'Core Data', 'Realm', 'SQFLite', 'Getx', 'Bloc', 'State Management', 'Micro frontend', 'GitHub/Git/GitLab', 'Bitbucket', 'Jira',
@@ -760,14 +798,16 @@
         'Third Party Libraries', 'Google Maps SDK', 'App Store Connect', 'Alamofire', 'Agile Methodologies', 'Firebase'
       ];
 
+    /* External links (e.g. Medium articles) */
     const LINKS = [
       { title: "Create a simple loader for iOS Apps", href: "https://medium.com/@vbhvjshi/creating-a-simple-loader-in-swift-for-your-ios-app-d49855c18894" },
       { title: "Mastering Async/Await in Swift: A Game-Changer for iOS Development", href: "https://medium.com/@vbhvjshi/mastering-async-await-in-swift-a-game-changer-for-ios-development-031bbebd41f4" }
     ];
 
+    /* Core strengths (bullet list in sidebar) */
     const STRENGTHS = [ "Technical Leadership", "Team Mentorship", "Architecture & Performance", "Client & Stakeholder Management"];
 
-    /* Icons */
+    /* Icons for contact pills (emoji + LinkedIn SVG) */
     const ICONS = {
       address: "📍",
       phone: "📞",
@@ -777,17 +817,18 @@
 
 
     /* ===========================
-       Renderers (do not change HTML structure)
+       RENDER: inject data into DOM
+       q(id) = getElementById; esc(s) = escape HTML to prevent XSS
        =========================== */
     function q(id) { return document.getElementById(id); }
     function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
 
-    /* header */
+    /* Header: name, role, summary */
     q('name').textContent = PROFILE.name;
     q('role').textContent = PROFILE.role;
     q('summary').textContent = PROFILE.summary;
 
-    /* contact pills */
+    /* Contact pills: location, phone, email, LinkedIn (with icons and links) */
     q('contactPills').innerHTML = PROFILE.contact.map(item => {
       if (typeof item === "string") {
         if (item.includes("Haldwani"))
@@ -823,7 +864,7 @@
       return `<div class="pill">🔗 <a href="${esc(item.href)}" target="_blank" rel="noopener noreferrer" style="color:inherit">${esc(item.label)}</a></div>`;
     }).join(' ');
 
-    /* work */
+    /* Work history: one article per job with company, role, period, bullets */
     q('workList').innerHTML = WORK.map(w => {
       return `<article class="job" role="article">
     <h4>💼  ${esc(w.company)} — ${esc(w.role)}    <span class="meta">${esc(w.period)}</span></h4>
@@ -831,7 +872,7 @@
   </article>`;
     }).join('');
 
-    /* projects — project name with inline store links in parentheses */
+    /* Projects: name, optional iOS/Android links, tech, role, responsibility */
     q('projectsList').innerHTML = PROJECTS.map(p => {
       // build links (iOS first, Android second)
       const iosLink = p.url ? `<a class="proj-link" href="${esc(p.url)}" target="_blank" rel="noopener noreferrer">iOS App Link</a>` : '';
@@ -851,8 +892,7 @@
   `;
     }).join('');
 
-
-    /* education */
+    /* Education: title + period with star bullet */
     q('eduList').innerHTML = EDUCATION.map(e => `
   <div class="edu-item">
     <div class="edu-text">
@@ -862,11 +902,10 @@
   </div>
 `).join('');
 
-
-    /* skills */
+    /* Skills: render as chip elements */
     q('skillsList').innerHTML = SKILLS.map(s => `<div class="skill-chip">${esc(s)}</div>`).join('');
 
-    /* links */
+    /* Links: icon + title, open in new tab */
     q('linksList').innerHTML = LINKS.map(l => `
   <div class="link-item">
     <span class="link-icon">
@@ -881,14 +920,16 @@
   </div>
 `).join('');
 
-    /* strengths */
+    /* Core strengths: star bullet + text */
     q('strengthsList').innerHTML = STRENGTHS.map(s => `
   <div class="str-item">
     <span>${esc(s)}</span>
   </div>
 `).join('');
 
-    /* Print handler: hide UI then print then restore */
+    /* ===========================
+       Print: hide topbar before print, restore after
+       =========================== */
     (function () {
       const btn = document.getElementById('btnPrint');
       const topbar = document.querySelector('.topbar');
@@ -907,7 +948,7 @@
       window.addEventListener('afterprint', () => { if (topbar) topbar.style.display = 'flex' });
     })();
 
-    /* Keep avatar initials if user doesn't supply an image */
+    /* Avatar: set aria-hidden; image is in HTML; can replace with initials if no image */
     (function () {
       const av = document.getElementById('avatar');
       av.setAttribute('aria-hidden', 'true');
