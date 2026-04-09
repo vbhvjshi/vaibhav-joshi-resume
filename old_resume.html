@@ -15,12 +15,12 @@
        ========================= */
     :root {
       /* fonts & sizes (variables requested) */
-      --section-title-size: 15px;
+      --section-title-size: 20px;
       --font-family: "Inter", Arial, Helvetica, sans-serif;
-      --font-size-base: 10px;
-      --font-size-sm: 9px;
-      --font-size-h: 12px;
-      --line: 1.0;
+      --font-size-base: 13px;
+      --font-size-sm: 12px;
+      --font-size-h: 16px;
+      --line: 1.1;
 
       /* color palette (professional) */
       --accent-1: #0b6b5a;
@@ -61,7 +61,7 @@
 
     /* Styled link text (accent color, underline) */
     .link-text {
-      font-size: 11px;
+      font-size: 15px;
       color: var(--accent-2);
       text-decoration: underline;
       line-height: 1.4;
@@ -119,7 +119,7 @@
       padding: 8px 12px;
       border-radius: 10px;
       cursor: pointer;
-      font-size: 12px
+      font-size: 16px
     }
 
     /* Page container: A4 width for screen preview */
@@ -180,14 +180,14 @@
     }
 
     .name {
-      font-size: 20px;
+      font-size: 26px;
       font-weight: 900;
       line-height: 1.2;
       margin-bottom: 2px
     }
 
     .role {
-      font-size: 13px;
+      font-size: 17px;
       opacity: 0.95;
       margin-left: 4px
     }
@@ -204,7 +204,7 @@
       background: rgba(255, 255, 255, 0.12);
       padding: 6px 10px;
       border-radius: 999px;
-      font-size: 11px;
+      font-size: 15px;
       font-weight: 700;
       color: #fff;
       display: inline-flex;
@@ -219,7 +219,8 @@
       display: grid;
       grid-template-columns: 1fr 270px;
       gap: var(--gap);
-      margin-top: 12px
+      margin-top: 12px;
+      align-items: stretch;
     }
 
     /* Reusable section container (summary, work, projects, skills, etc.) */
@@ -253,12 +254,12 @@
     }
 
     .job h4 {
-      font-size: 12px;
+      font-size: 16px;
       font-weight: 700
     }
 
     .job .meta {
-      font-size: 10px;
+      font-size: 13px;
       color: var(--muted);
       margin-bottom: 6px;
       margin-top: 5px;
@@ -269,7 +270,7 @@
       list-style: none;
       margin: 0;
       padding: 0;
-      font-size: 11px;
+      font-size: 15px;
       color: #113441
     }
 
@@ -371,18 +372,18 @@
 
     .project-row a {
       font-weight: 700;
-      font-size: 12px;
+      font-size: 16px;
       color: var(--accent-2)
     }
 
     .project-row .p-meta {
-      font-size: 11px;
+      font-size: 15px;
       color: var(--muted)
     }
 
     /* inline links next to project name (in parentheses) */
     .p-links {
-      font-size: 11px;
+      font-size: 15px;
       color: var(--muted);
       margin-left: 6px;
       font-weight: 600;
@@ -395,30 +396,48 @@
     }
 
     .p-title {
-      font-size: 12px;
+      font-size: 16px;
       font-weight: 700;
       color: #0b0f13;
       line-height: 1.0;
     }
 
     .p-tech {
-      font-size: 10px;
+      font-size: 13px;
       color: var(--muted);
       margin-left: 16px;
     }
 
     .p-meta {
-      font-size: 11px;
+      font-size: 15px;
       color: #0b0f13;
       margin-bottom: 8px;
       margin-left: 16px;
     }
 
-    /* =========================
-       Sidebar (right column: skills, education, links, strengths)
-       ========================= */
+    /* Sidebar container (stretches to fill grid height) */
+    .side {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      align-self: stretch;
+      /* Explicitly tell grid item to stretch */
+    }
+
+    /* Individual boxes inside sidebar */
     .side .section-box {
-      padding: 10px
+      margin-top: 12px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .side .section-box:first-child {
+      margin-top: 0;
+    }
+
+    /* Expand the last box to fill the remaining height */
+    .side .section-box:last-child {
+      flex-grow: 1;
     }
 
     /* Skill chips (wrap, gap) */
@@ -432,7 +451,7 @@
       background: #eef8f6;
       border-radius: 5px;
       padding: 6px 8px;
-      font-size: 8px;
+      font-size: 11px;
       color: #023b33;
       border: 1px solid rgba(3, 59, 51, 0.06)
     }
@@ -440,20 +459,20 @@
     .links a {
       display: inline-block;
       margin-bottom: 6px;
-      font-size: 11px;
+      font-size: 15px;
       color: var(--accent-2)
     }
 
     .strengths ul {
       margin: 8px 0 0 16px;
-      font-size: 11px;
+      font-size: 15px;
       color: #111
     }
 
     /* Muted/secondary text color */
     .muted {
       color: var(--muted);
-      font-size: 11px
+      font-size: 15px
     }
 
     /* On-screen footer (hidden when printing) */
@@ -461,7 +480,7 @@
       display: flex;
       justify-content: center;
       padding: 20px 0;
-      font-size: 11px;
+      font-size: 15px;
       color: var(--muted)
     }
 
@@ -536,15 +555,15 @@
 
       .skills .skill-chip {
         padding: 2px 4px;
-        font-size: 10px;
+        font-size: 13px;
       }
 
       .name {
-        font-size: 14px
+        font-size: 19px
       }
 
       .role {
-        font-size: 11px
+        font-size: 15px
       }
 
       /* Keep sections/jobs/projects from breaking across pages */
@@ -726,11 +745,11 @@
         role: "Tech Lead",
         period: "(Dec 2022 — March 2026)",
         bullets: [
-            "Led mobile iOS - Swift, Android - Kotlin and CRM teams, owning sprint planning, technical reviews, application development and production releases.",
-            "Mentored 4+ developers across iOS and Android (Kotlin) through training sessions and code reviews, improving code quality and delivery speed.",
-            "Acted as primary client interface, translating business requirements into scalable mobile (iOS & Android) and CRM solutions.",
-            "Performed unit testing and designed test cases using AI-assisted tools (ChatGPT, Gemini, Antigravity, Cursor) to improve test coverage and development efficiency."
-      ]
+          "Led mobile iOS - Swift, Android - Kotlin and CRM teams, owning sprint planning, technical reviews, application development and production releases.",
+          "Mentored 4+ developers across iOS and Android (Kotlin) through training sessions and code reviews, improving code quality and delivery speed.",
+          "Acted as primary client interface, translating business requirements into scalable mobile (iOS & Android) and CRM solutions.",
+          "Performed unit testing and designed test cases using AI-assisted tools (ChatGPT, Gemini, Antigravity, Cursor) to improve test coverage and development efficiency."
+        ]
       },
       {
         company: "Sysmind Tech",
@@ -784,20 +803,20 @@
 
     /* Key projects: name, url (iOS), url2 (Android optional), role, tech, resp */
     const PROJECTS = [
-        { name: "AIBOBOA", url: "https://apps.apple.com/lb/app/aiboboa/id1511900581", role: "Developer", tech: "iOS, Swift", resp: "Collaborated with stakeholders; improved app stability; managed App Store deployment." },
-        { name: "Golf Been", url: "https://apps.apple.com/us/app/golf-been/id1573239854", role: "Developer, Team Lead", tech: "iOS, Swift", resp: "Drove development; coordinated with client; guided team execution." },
-        /* esigns", url: "https://apps.apple.com/us/app/innodesigns/id1586313419", role: "Developer", tech: "iOS, Swift", resp: "Owned architecture and delivery; optimized performance; managed development team."}, */
-        { name: "DSD TABS", url: "https://testflight.apple.com/join/Y1KMYGTk", role: "Lead Developer", tech: "Flutter", resp: "Spearheaded dev; optimised performance; managed team." },
-        { name: "VCare Blue Voltas", url: "https://apps.apple.com/in/app/vcare-blue-voltas/id1473801658", url2: "https://play.google.com/store/apps/details?id=com.cubastion.voltasvcare&hl=en_IN&pli=1", role: "Lead Developer", tech: "Swift, Objective-C, Flutter, Kotlin", resp: "Led cross-platform delivery; improved performance; ensured on-time releases." }
-      ];
+      { name: "AIBOBOA", url: "https://apps.apple.com/lb/app/aiboboa/id1511900581", role: "Developer", tech: "iOS, Swift", resp: "Collaborated with stakeholders; improved app stability; managed App Store deployment." },
+      { name: "Golf Been", url: "https://apps.apple.com/us/app/golf-been/id1573239854", role: "Developer, Team Lead", tech: "iOS, Swift", resp: "Drove development; coordinated with client; guided team execution." },
+      /* esigns", url: "https://apps.apple.com/us/app/innodesigns/id1586313419", role: "Developer", tech: "iOS, Swift", resp: "Owned architecture and delivery; optimized performance; managed development team."}, */
+      { name: "DSD TABS", url: "https://testflight.apple.com/join/Y1KMYGTk", role: "Lead Developer", tech: "Flutter", resp: "Spearheaded dev; optimised performance; managed team." },
+      { name: "VCare Blue Voltas", url: "https://apps.apple.com/in/app/vcare-blue-voltas/id1473801658", url2: "https://play.google.com/store/apps/details?id=com.cubastion.voltasvcare&hl=en_IN&pli=1", role: "Lead Developer", tech: "Swift, Objective-C, Flutter, Kotlin", resp: "Led cross-platform delivery; improved performance; ensured on-time releases." }
+    ];
 
     /* Technical skills (displayed as chips in sidebar) */
     const SKILLS = [
-        'Swift', 'Objective-C', 'Flutter', 'iOS', 'XCode', 'SwiftUI', 'Android Studio', 'Figma', 'Cursor', 'Android', 'MVC', 'MVVM', 'MVP', 'SOLID Principle', 'AI', 'ChatGPT', 'Cursor', 
-        'Core Data', 'Realm', 'SQFLite', 'Getx', 'Bloc', 'State Management', 'Micro frontend', 'GitHub/Git/GitLab', 'Bitbucket', 'Jira',
-        'Payment Gateway', 'Location Services', 'Push Notifications', 'REST API', 'Kotlin Multiplatform (KMP/KMM)', 'Jetpack Compose', 
-        'Third Party Libraries', 'Google Maps SDK', 'App Store Connect', 'Alamofire', 'Agile Methodologies', 'Firebase'
-      ];
+      'Swift', 'Objective-C', 'Flutter', 'iOS', 'XCode', 'SwiftUI', 'Android Studio', 'Figma', 'Cursor', 'Android', 'MVC', 'MVVM', 'MVP', 'SOLID Principle', 'AI', 'ChatGPT', 'Cursor',
+      'Core Data', 'Realm', 'SQFLite', 'Getx', 'Bloc', 'State Management', 'Micro frontend', 'GitHub/Git/GitLab', 'Bitbucket', 'Jira',
+      'Payment Gateway', 'Location Services', 'Push Notifications', 'REST API', 'Kotlin Multiplatform (KMP/KMM)', 'Jetpack Compose',
+      'Third Party Libraries', 'Google Maps SDK', 'App Store Connect', 'Alamofire', 'Agile Methodologies', 'Firebase'
+    ];
 
     /* External links (e.g. Medium articles) */
     const LINKS = [
@@ -807,7 +826,7 @@
     ];
 
     /* Core strengths (bullet list in sidebar) */
-    const STRENGTHS = [ "Technical Leadership", "Team Mentorship", "Architecture & Performance", "Client & Stakeholder Management"];
+    const STRENGTHS = ["Technical Leadership", "Team Mentorship", "Architecture & Performance", "Client & Stakeholder Management"];
 
     /* Icons for contact pills (emoji + LinkedIn SVG) */
     const ICONS = {
