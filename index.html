@@ -71,6 +71,16 @@
         page-break-before: always;
       }
 
+      /* Print-only override: keep Technical Expertise on same page */
+      #techExpertiseSection {
+        page-break-before: auto !important;
+      }
+
+      .project-callout {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
       .page {
         margin: 0;
         box-shadow: none;
@@ -227,22 +237,30 @@
       font-style: italic;
     }
 
-    /* Bold labels pushed inward to match ul/li bounds, used in 'Key Projects' grid */
-    .grid-label {
-      position: relative;
-      padding-left: 18px;
-      font-weight: 700;
-      color: var(--accent);
+    /* Highlighted project callout under each company (hidden when no project data) */
+    .project-callout {
+      margin-left: 18px;
+      margin-top: 6px;
+      font-size: calc(12px * var(--font-scale));
+      color: var(--text);
+      line-height: 1.35;
+      background: rgba(43, 87, 151, 0.08);
+      border: 1px solid rgba(43, 87, 151, 0.18);
+      border-left: 4px solid var(--accent);
+      padding: 6px 10px;
+      border-radius: 6px;
     }
 
-    /* The solid diamond indicator (◆) injected inside .grid-label */
-    .grid-label::before {
-      content: "◆";
-      position: absolute;
-      left: 0;
+    .project-callout strong {
       color: var(--accent);
-      font-size: calc(10px * var(--font-scale));
-      top: 2px;
+      font-weight: 900;
+      letter-spacing: 0.2px;
+    }
+
+    .project-callout a {
+      color: var(--accent);
+      text-decoration: underline;
+      font-weight: 700;
     }
 
     /* =========================
@@ -341,25 +359,6 @@
       top: 2px;
     }
 
-    /* Container holding the App Store / Play Store links inside the Project grid */
-    .proj-links {
-      font-size: calc(10px * var(--font-scale));
-      margin-top: 4px;
-    }
-
-    .proj-links a {
-      color: var(--accent);
-      font-weight: 700;
-      text-decoration: none;
-      margin-right: 12px;
-      text-transform: uppercase;
-    }
-
-    /* Hover underlines for project links */
-    .proj-links a:hover {
-      text-decoration: underline;
-    }
-
     /* =========================
        Controls & Web UI
        ========================= */
@@ -419,15 +418,9 @@
       <div id="workList"></div>
     </section>
 
-    <section class="page-break">
+    <section class="page-break" id="techExpertiseSection">
       <h2>Technical Expertise</h2>
       <div id="skillsList"></div>
-    </section>
-
-    <!-- Key Projects section (grid layout for domain, role, desc, resp, tech) -->
-    <section>
-      <h2>Key Projects</h2>
-      <div id="projectsList"></div>
     </section>
 
     <!-- 2-Column layout container for Education and Strengths -->
@@ -454,7 +447,7 @@
     const PROFILE = {
       name: "Vaibhav Joshi",
       role: "Sr. iOS Engineer | Flutter — 7.5+ years",
-      summary: "Senior iOS / Tech Lead with 7.5+ years of experience delivering enterprise-grade mobile solutions, leading cross-functional teams, owning end-to-end SDLC, mentoring engineers, and partnering with stakeholders to build scalable, secure, high-performance iOS, Android applications using modern architectures.",
+      summary: "Senior iOS / Flutter engineer with 7.5+ years building production mobile apps in Swift, UIKit, SwiftUI, Flutter (Riverpod, Bloc, Provider), REST & GraphQL APIs, Firebase, and MVVM/Clean Architecture—shipping through Git/GitHub, CI/CD, and App Store Connect.",
       contact: [
         "New Delhi, India",
         "+91 9761888686",
@@ -463,59 +456,81 @@
       ]
     };
 
+    /* Each entry: company, period, bullets, optional project { label, name, url, url2 } — callout hidden if no project */
     const WORK = [
-      {
-        company: "Cubastion Consulting Pvt. Ltd.",
-        role: "Tech Lead",
-        period: "(Dec 2022 — March 2026)", // Maintained exact string provided
-        bullets: [
-          "Led mobile iOS - Swift, Android and CRM teams, owning sprint planning, technical reviews, application development and production releases.",
-          "Mentored 4+ developers across iOS and Flutter through training sessions and code reviews, improving code quality and delivery speed.",
-          "Acted as primary client interface, translating business requirements into scalable mobile (iOS & Android) and CRM solutions.",
-          "Performed unit testing and designed test cases using AI-assisted tools (ChatGPT, Gemini, Antigravity, Cursor) to improve test coverage and development efficiency."
-        ]
-      },
-      {
-        company: "Sysmind Tech",
-        role: "iOS Developer",
-        period: "(May 2022 — Dec 2022)",
-        bullets: [
-          "Implemented and refactored features using Swift & MVVM architecture to improve reusability and maintainability.",
-          "Stabilized APIs and reduced production issues through proactive debugging and optimization.",
-          "Improved UI performance and app stability through architectural refinements."
-        ]
-      },
-      {
-        company: "Evon Technologies",
-        role: "iOS Developer",
-        period: "(Jul 2021 — May 2022)",
-        bullets: [
-          "Enhanced production iOS applications using Swift, Flutter and integrated third-party SDKs.",
-          "Optimized animations and UI rendering to improve runtime performance.",
-          "Enforced Swift and Objective-C best practices across the codebase."
-        ]
-      },
-      {
-        company: "Yugasa Software Labs",
-        role: "iOS Developer",
-        period: "(Aug 2019 — July 2021)",
-        bullets: [
-          "Delivered and maintained multiple client-facing iOS and Android application with App Store & Play Store ownership.",
-          "Improved UI/UX using adaptive layouts across device sizes.",
-          "Integrated REST APIs with retry, error handling, and data persistence using Swift & Flutter technology."
-        ]
-      },
-      {
-        company: "Cacao Solutions",
-        role: "Junior iOS Developer",
-        period: "(Jul 2018 — Aug 2019)",
-        bullets: [
-          "Built data-driven iOS applications using Swift, Core Data and a custom networking layer.",
-          "Designed onboarding flows and core navigation experiences.",
-          "Refactored legacy code to reduce technical debt and improve stability."
-        ]
+    {
+      company: "Cubastion Consulting Pvt. Ltd.",
+      period: "(Dec 2022 — March 2026)",
+      bullets: [
+        "Developed native iOS and Flutter applications using Swift, Objective-C, UIKit, SwiftUI, and Flutter (Android/iOS).",
+        "Integrated REST API + GraphQL (Alamofire) with Firebase (FCM/Crashlytics), Location, and payment flows.",
+        "Applied MVVM/Clean Architecture; used Riverpod/Bloc/Provider for Flutter state management.",
+        "Reduced crashes by up to 40% via bug fixes + Crashlytics triage; shipped using Git/GitHub + CI/CD (TestFlight/Play Store)."
+      ],
+      project: {
+        label: "Key Project",
+        name: "VCare Blue Voltas",
+        url: "https://apps.apple.com/in/app/vcare-blue-voltas/id1473801658",
+        url2: "https://play.google.com/store/apps/details?id=com.cubastion.voltasvcare&hl=en_IN&pli=1"
       }
-    ];
+    },
+    {
+      company: "Sysmind Tech",
+      period: "(May 2022 — Dec 2022)",
+      bullets: [
+        "Developed Flutter tablet applications using Dart, Flutter SDK, Bloc, and reusable UI components.",
+        "Integrated REST APIs (auth, JSON, error handling) and offline caching with SQLite (sqflite).",
+        "Added theming, validation, and unit/widget tests; fixed bugs from TestFlight feedback.",
+        "Automated signed builds and TestFlight distribution using Git/GitHub and CI/CD."
+      ],
+      project: {
+        label: "Product",
+        name: "DSD TABS",
+        url: "https://testflight.apple.com/join/Y1KMYGTk",
+        urlLabel: "TestFlight Link"
+      }
+    },
+    {
+      company: "Evon Technologies",
+      period: "(Jul 2021 — May 2022)",
+      bullets: [
+        "Developed iOS and Flutter applications using Swift, UIKit, Flutter, Auto Layout, and Provider state management.",
+        "Integrated Flutter modules with Provider; added Google Maps and Location Services.",
+        "Applied MVVM; tuned UI performance (Core Animation/Instruments) and fixed crash issues.",
+        "Released via Git/GitHub and App Store Connect/TestFlight (signing, provisioning, versioning)."
+      ],
+      project: {
+        label: "Relevant Project",
+        name: "Golf Been",
+        url: "https://apps.apple.com/us/app/golf-been/id1573239854"
+      }
+    },
+    {
+      company: "Yugasa Software Labs",
+      period: "(Aug 2019 — July 2021)",
+      bullets: [
+        "Developed native iOS applications using Swift, UIKit, MVC/MVVM architecture, and Core Data.",
+        "Integrated REST APIs via Alamofire (token refresh, parsing, error handling) and Core Data offline persistence.",
+        "Implemented Firebase Push, Keychain secure storage, and adaptive UI across iPhone sizes.",
+        "Managed releases using Git/GitHub and App Store Connect/TestFlight (signing, versioning, hotfix builds)."
+      ],
+      project: {
+        label: "Shipped App",
+        name: "AIBOBOA",
+        url: "https://apps.apple.com/lb/app/aiboboa/id1511900581"
+      }
+    },
+    {
+      company: "Cacao Solutions",
+      period: "(Jul 2018 — Aug 2019)",
+      bullets: [
+        "Developed native iOS applications using Swift, UIKit, Objective-C, and REST API integration.",
+        "Implemented Core Data persistence; maintained Objective-C/Swift modules (bridging headers, legacy fixes).",
+        "Debugged with Xcode/Instruments; prepared App Store builds (signing, archiving, App Store Connect).",
+        "Used Git for version control (branches and release flow)."
+      ]
+    }
+  ];
 
     const EDUCATION = [
       { title: "MCA — Graphic Era Hill University", period: "2015–2018" },
@@ -524,52 +539,8 @@
       { title: "Highschool", period: "2008–2009" }
     ];
 
-    const PROJECTS = [
-      {
-        name: "AIBOBOA",
-        urlTitle: "App Store Link",
-        url: "https://apps.apple.com/lb/app/aiboboa/id1511900581",
-        domain: "FinTech / Banking",
-        role: "Sr. iOS Developer",
-        desc: "Internal banking app for Bank of Baroda employees.",
-        resp: "Managed stakeholder collab, app stability, & App Store deployment.",
-        tech: "iOS, Swift"
-      },
-      {
-        name: "Golf Been",
-        urlTitle: "App Store Link",
-        url: "https://apps.apple.com/us/app/golf-been/id1573239854",
-        domain: "Sports & Leisure",
-        role: "Developer, Team Lead",
-        desc: "Platform for golfers to track games and socialize.",
-        resp: "Drove core development, client coordination, & team guidance.",
-        tech: "iOS, Swift"
-      },
-      {
-        name: "DSD TABS",
-        urlTitle: "App Store Link",
-        url: "https://testflight.apple.com/join/Y1KMYGTk",
-        domain: "Enterprise / Field Service",
-        role: "Lead Developer",
-        desc: "Tablet-based tool for field business automation.",
-        resp: "Spearheaded development, performance optimization, & team management.",
-        tech: "Flutter"
-      },
-      {
-        name: "VCare Blue Voltas",
-        urlTitle: "App Store Link | Play Store Link",
-        url: "https://apps.apple.com/in/app/vcare-blue-voltas/id1473801658",
-        url2: "https://play.google.com/store/apps/details?id=com.cubastion.voltasvcare&hl=en_IN&pli=1",
-        domain: "Customer Service",
-        role: "Lead Developer",
-        desc: "Service management app for Voltas home appliances.",
-        resp: "Led cross-platform delivery, performance tuning, & timely releases.",
-        tech: "Swift, Objective-C, Flutter"
-      }
-    ];
-
     const SKILLS = [
-      'Swift', 'Objective-C', 'Flutter', 'iOS', 'XCode', 'SwiftUI', 'Android Studio', 'Figma', 'Android', 'MVC', 'MVVM', 'MVP', 'SOLID Principle', 'AI', 'ChatGPT', 'Cursor',
+      'Figma', 'MVC', 'MVVM', 'MVP', 'SOLID Principle', 'AI', 'ChatGPT', 'Cursor',
       'Core Data', 'Realm', 'SQFLite', 'Getx', 'Bloc', 'State Management', 'Micro frontend', 'GitHub', 'Git', 'GitLab', 'Bitbucket', 'Jira',
       'Payment Gateway', 'Location Services', 'MobX', 'Clean Architecture', 'Push Notifications', 'GraphQL', 'Riverpod', 'Provider', 'GetX', 'REST API',
       'Third Party Libraries', 'UIKit', 'App Store Connect', 'Alamofire', 'Agile Methodologies', 'Firebase'
@@ -606,57 +577,49 @@
                 <span>${href ? `<a href="${href}" target="_blank">${label}</a>` : label}</span>`;
     }).join('');
 
-    $('workList').innerHTML = WORK.map(w => `
-      <div class="content-block">
+    function renderProjectLinks(project) {
+      const parts = [];
+      if (project.url) {
+        const label = project.urlLabel || 'App Store Link';
+        parts.push(`<a href="${project.url}" target="_blank" rel="noopener noreferrer">${label}</a>`);
+      }
+      if (project.url2) {
+        parts.push(`<a href="${project.url2}" target="_blank" rel="noopener noreferrer">Play Store Link</a>`);
+      }
+      return parts.join(' | ');
+    }
+
+    function renderProjectCallout(project) {
+      if (!project || !project.name) return '';
+      const label = project.label || 'Featured Project';
+      const links = renderProjectLinks(project);
+      const linksHtml = links ? ` (${links})` : '';
+      return `<div class="project-callout"><strong>${label}:</strong> ${project.name}${linksHtml}</div>`;
+    }
+
+    $('workList').innerHTML = WORK.map(w => {
+      const projectLine = renderProjectCallout(w.project);
+
+      // Start "Cacao Solutions" on the next printed page so that
+      // Technical Expertise appears below it on the same page.
+      const pageBreakClass = (w.company === 'Cacao Solutions') ? ' page-break' : '';
+
+      return `
+      <div class="content-block${pageBreakClass}">
         <div class="row-split" style="margin-bottom: 4px;">
-          <span>
-            <span class="title-main"><span style="color:var(--accent); margin-right:4px;">➤</span>${w.company}</span>
-            <span style="color:var(--muted); margin: 0 6px;">|</span>
-            <span class="title-sub" style="margin-bottom:0;">${w.role}</span>
-          </span>
+          <span class="title-main"><span style="color:var(--accent); margin-right:4px;">➤</span>${w.company}</span>
           <span class="date-align">${w.period}</span>
         </div>
         <ul>${w.bullets.map(b => `<li>${b}</li>`).join('')}</ul>
+        ${projectLine}
       </div>
-    `).join('');
+    `;
+    }).join('');
 
     // Render skills as individual pill boxes (chips)
     $('skillsList').innerHTML = `<div class="skills-container">
         ${SKILLS.map(s => `<div class="skill-chip">${s}</div>`).join('')}
     </div>`;
-
-    $('projectsList').innerHTML = PROJECTS.map((p, i) => {
-      let linksHTML = '';
-      if (p.url && !p.url2) {
-        linksHTML = `<a href="${p.url}" target="_blank" style="color:var(--accent); text-decoration:underline;">${p.urlTitle}</a>`;
-      } else if (p.url && p.url2) {
-        linksHTML = `<a href="${p.url}" target="_blank" style="color:var(--accent); text-decoration:underline;">App Store</a> | <a href="${p.url2}" target="_blank" style="color:var(--accent); text-decoration:underline;">Play Store</a>`;
-      }
-
-      return `
-      <div class="content-block" style="margin-bottom:8px;">
-        <div style="margin-bottom: 2px;">
-          <span>
-            <span class="title-main"><span style="color:var(--accent); margin-right:4px;">➤</span>${p.name}</span>
-            <span style="color:var(--muted); margin: 0 6px;">|</span>
-            <span style="font-size:calc(11.5px*var(--font-scale)); font-weight:500;">${linksHTML}</span>
-          </span>
-        </div>
-        <div style="display: grid; grid-template-columns: 140px 1fr; gap: 0px 8px; margin-left: 18px; font-size: calc(12px * var(--font-scale)); color: var(--muted); line-height: 1.3;">
-          <div class="grid-label">Domain:</div>
-          <div>${p.domain}</div>
-          <div class="grid-label">Role:</div>
-          <div>${p.role}</div>
-          <div class="grid-label">Description:</div>
-          <div>${p.desc}</div>
-          <div class="grid-label">Responsibilities:</div>
-          <div>${p.resp}</div>
-          <div class="grid-label">Technologies:</div>
-          <div>${p.tech}</div>
-        </div>
-      </div>
-      `;
-    }).join('');
 
     $('eduList').innerHTML = EDUCATION.map(e => `
       <div class="sub-bullet">
